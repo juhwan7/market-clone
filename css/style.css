@@ -3,6 +3,11 @@
 @import "footer.css";
 @import "main.css";
 
+:root {
+  --button-primart: rgb(254, 111, 15);
+  --button-hover: rgba(254, 111, 15, 0.8);
+}
+
 .media-info-msg {
   position: fixed;
   top: 0;
@@ -16,7 +21,7 @@
   opacity: 1;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 800px) {
   .media-info-msg {
     display: none;
   }
