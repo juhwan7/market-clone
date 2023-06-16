@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, Form,Response
+from fastapi import FastAPI, UploadFile, Form, Response
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 from fastapi.staticfiles import StaticFiles
@@ -8,6 +8,18 @@ import sqlite3
 con = sqlite3.connect('db.db', check_same_thread=False)
 cur = con.cursor()
 
+cur.execute(f"""
+            CREATE TABLE IF NOT EXISTS items (
+	            id INTEGER PRIMARY KEY,
+	            title TEXT NOT NULL,
+	            image BLOB,
+	            price INTEGER NOT NULL,
+	            description TEXT,
+	            place TEXT NOT NULL,
+	            insertAt INTEGER NOT NULL
+);
+
+            """)
 
 app = FastAPI()
 
@@ -38,6 +50,7 @@ async def create_item(image: UploadFile,
                 """)
     con.commit()
     return '200'
+
 
 @app.get("/items/{item_id}")
 async def get_image(item_id):
