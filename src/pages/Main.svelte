@@ -1,8 +1,6 @@
 <script>
   let hour = new Date().getHours();
   let min = new Date().getMinutes();
-
-  setInterval(() => (min = min + 1), 1000);
 </script>
 
 <header>

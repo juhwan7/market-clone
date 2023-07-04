@@ -8,7 +8,7 @@ const handlesSubmitForm = async (event) => {
   try {
     const res = await fetch("/items", {
       method: "POST",
-      body,
+      body, 
     });
     const data = await res.json();
     if (data === "200") {

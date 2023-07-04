@@ -16,5 +16,13 @@
   };
 </script>
 
+<main>
+  <div>안녕하세요</div>
+</main>
 <Router {routes} />
- 
+
+<style>
+  div {
+    color: red;
+  }
+</style>
