@@ -10,6 +10,7 @@ import sqlite3
 con = sqlite3.connect('db.db', check_same_thread=False)
 cur = con.cursor()
 
+
 cur.execute(f"""
             CREATE TABLE IF NOT EXISTS items (
 	            id INTEGER PRIMARY KEY,
@@ -87,6 +88,7 @@ async def get_items(user=Depends(manager)):
     rows = cur.execute(f"""
                        SELECT * FROM items
                        """).fetchall()
+
     return JSONResponse(jsonable_encoder(dict(row)for row in rows))
 
 
@@ -107,14 +109,14 @@ async def create_item(image: UploadFile,
     return '200'
 
 
-@app.get("/items/{item_id}")
+@app.get("/images/{item_id}")
 async def get_image(item_id):
     cur = con.cursor()
     image_bytes = cur.execute(f"""
                               SELECT image
                               FROM items
                               WHERE id={item_id}
-                              """).fetchone[0]
+                              """).fetchone()[0]
     return Response(content=bytes.fromhex(image_bytes), media_type="image/*")
 
 

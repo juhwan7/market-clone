@@ -13,7 +13,7 @@ const calcTime = (timestamp) => {
 
 const renderData = (data) => {
   const main = document.querySelector("main");
-  data.reverse().forEach(async (obj) => {
+  data.reverse().forEach(async (obj) => { 
     const div = document.createElement("div");
     div.className = "items-list";
 
@@ -66,6 +66,7 @@ const fetchList = async () => {
   //   return;
   // }
   const data = await res.json();
-  renderData(data);
+  console.log(data);
+  // renderData(data);
 };
 fetchList();
