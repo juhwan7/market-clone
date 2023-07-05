@@ -13,7 +13,7 @@ const calcTime = (timestamp) => {
 
 const renderData = (data) => {
   const main = document.querySelector("main");
-  data.reverse().forEach(async (obj) => { 
+  data.reverse().forEach(async (obj) => {
     const div = document.createElement("div");
     div.className = "items-list";
 
@@ -53,7 +53,6 @@ const renderData = (data) => {
 
 const fetchList = async () => {
   const accessToken = window.localStorage.getItem("token");
-
   const res = await fetch("/items", {
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -66,7 +65,6 @@ const fetchList = async () => {
   //   return;
   // }
   const data = await res.json();
-  console.log(data);
-  // renderData(data);
+  renderData(data);
 };
 fetchList();

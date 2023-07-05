@@ -21,7 +21,6 @@ cur.execute(f"""
 	            place TEXT NOT NULL,
 	            insertAt INTEGER NOT NULL
 );
-
             """)
 
 app = FastAPI()
@@ -33,9 +32,9 @@ manager = LoginManager(SERCRET, '/login')
 
 @manager.user_loader()
 def query_user(data):
-    WHERE_STATEMENTS = f'id="{data}"'
+    WHERE_STATEMENTS = f'''id="{data}"'''
     if type(data) == dict:
-        WHERE_STATEMENTS = f'name="{id["id"]}"'
+        WHERE_STATEMENTS = f'''id="{data['id']}"'''
     con.row_factory = sqlite3.Row
     cur = con.cursor()
     user = cur.execute(f"""
@@ -49,7 +48,7 @@ def login(
         id: Annotated[str, Form()],
         password: Annotated[str, Form()]):
     user = query_user(id)
-    print(user['password'])
+    print(user)
     if not user:
         raise InvalidCredentialsException
     elif password != user['password']:
@@ -59,7 +58,7 @@ def login(
         'sub': {
             'id': user['id'],
             'name': user['name'],
-            'email': user['email'],
+            'email': user['email']
         }
     })
 
@@ -67,11 +66,11 @@ def login(
 
 
 @app.post('/signup')
-def signup(id: Annotated[str, Form()],
-           password: Annotated[str, Form()],
-           name: Annotated[str, Form()],
-           email: Annotated[str, Form()],
-           ):
+async def signup(id: Annotated[str, Form()],
+                 password: Annotated[str, Form()],
+                 name: Annotated[str, Form()],
+                 email: Annotated[str, Form()],
+                 ):
     cur.execute(f"""
                 INSERT INTO users(id,name,email,password)
                 VALUES('{id}','{name}','{email}','{password}')
