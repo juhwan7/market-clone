@@ -16,7 +16,7 @@
   import { onMount, tick } from "svelte";
   import Loading from "./pages/Loading.svelte";
 
-  let isLoading = true;
+  let isLoading = false;
 
   const auth = getAuth();
 
@@ -38,7 +38,7 @@
     "*": NotFound,
   };
 
-  onMount(() => checkLogin());
+  onMount(() => checkLogin);
 </script>
 
 {#if isLoading}
